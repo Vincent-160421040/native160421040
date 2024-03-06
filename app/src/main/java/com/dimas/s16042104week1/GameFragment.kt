@@ -21,14 +21,18 @@ class GameFragment : Fragment() {
         return binding.root
     }
 
+    companion object {
+        var score: Int = 0
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val random          = Random
-        val randomNumber1   = random.nextInt(100) + 1
-        val randomNumber2   = random.nextInt(100) + 1
-        val answer          = randomNumber1 + randomNumber2
-        var score: Int      = 0
+        var randomNumber1   = random.nextInt(100) + 1
+        var randomNumber2   = random.nextInt(100) + 1
+        var answer          = randomNumber1 + randomNumber2
+        score = 0
 
         binding.txtNum1.text = randomNumber1.toString()
         binding.txtNum2.text = randomNumber2.toString()
@@ -47,8 +51,19 @@ class GameFragment : Fragment() {
             val playerAnswer = binding.txtAnswer.text.toString().toInt()
 
             if(playerAnswer == answer){
+                randomNumber1   = random.nextInt(100) + 1
+                randomNumber2   = random.nextInt(100) + 1
+                answer          = randomNumber1 + randomNumber2
                 score++
+
+                binding.txtNum1.text = randomNumber1.toString()
+                binding.txtNum2.text = randomNumber2.toString()
+
                 binding.txtScore.text = "Score: $score"
+            }
+            else{
+                val action = GameFragmentDirections.actionResultFragment()
+                Navigation.findNavController(it).navigate(action)
             }
         }
     }
