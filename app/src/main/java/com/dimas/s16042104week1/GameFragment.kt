@@ -33,7 +33,7 @@ class GameFragment : Fragment() {
         binding.txtNum1.text = randomNumber1.toString()
         binding.txtNum2.text = randomNumber2.toString()
 
-            if(arguments != null) {
+        if(arguments != null) {
             val playerName = GameFragmentArgs.fromBundle(requireArguments()).playerName
             binding.txtTurn.text = "$playerName's Turn"
         }
